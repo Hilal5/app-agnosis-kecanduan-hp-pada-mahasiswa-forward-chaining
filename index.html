@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sistem Pakar - Diagnosa Kecanduan Gadget Mahasiswa</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <nav>
+      <div class="nav-brand">SiPakar<span> Gadget</span></div>
+      <div class="nav-info">
+        Kelompok 4 — Jenni Mustika & Izma Darawiyah Nst
+      </div>
+    </nav>
+
+    <div class="hero">
+      <div class="badge">Sistem Pakar · Forward Chaining</div>
+      <h1>Diagnosa Tingkat<br /><span>Kecanduan Gadget</span></h1>
+      <p>
+        Sistem pakar berbasis web untuk mendeteksi dan mengklasifikasikan
+        tingkat kecanduan gadget pada mahasiswa secara mandiri.
+      </p>
+      <div class="hero-meta">
+        <span>20 Indikator Gejala</span>
+        <span>3 Tingkat Kecanduan</span>
+        <span>Metode Forward Chaining</span>
+        <span>Tanpa Database</span>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="steps">
+        <div class="step active" id="s1">
+          <div class="step-circle">1</div>
+          <div class="step-label">Data Diri</div>
+        </div>
+        <div class="step-line" id="l1"></div>
+        <div class="step" id="s2">
+          <div class="step-circle">2</div>
+          <div class="step-label">Gejala</div>
+        </div>
+        <div class="step-line" id="l2"></div>
+        <div class="step" id="s3">
+          <div class="step-circle">3</div>
+          <div class="step-label">Hasil</div>
+        </div>
+      </div>
+
+      <!-- PAGE 1 -->
+      <div class="page active" id="page1">
+        <div class="card">
+          <div class="card-title">Data Diri Mahasiswa</div>
+          <div class="card-subtitle">
+            Lengkapi informasi berikut untuk memulai diagnosa kecanduan gadget.
+          </div>
+          <div class="form-row single">
+            <div class="field">
+              <label>Nama Lengkap</label
+              ><input
+                type="text"
+                id="nama"
+                placeholder="Masukkan nama lengkap..."
+              />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="field">
+              <label>NIM / NPM</label
+              ><input
+                type="text"
+                id="nim"
+                placeholder="Nomor Induk Mahasiswa..."
+              />
+            </div>
+            <div class="field">
+              <label>Usia</label
+              ><input
+                type="number"
+                id="usia"
+                placeholder="Usia (tahun)"
+                min="17"
+                max="35"
+              />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="field">
+              <label>Jenis Kelamin</label
+              ><select id="jk">
+                <option value="">-- Pilih --</option>
+                <option>Laki-laki</option>
+                <option>Perempuan</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Program Studi</label
+              ><input
+                type="text"
+                id="prodi"
+                placeholder="Contoh: Teknik Informatika"
+              />
+            </div>
+          </div>
+          <div class="form-row single">
+            <div class="field">
+              <label>Semester</label
+              ><select id="semester">
+                <option value="">-- Pilih Semester --</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+              </select>
+            </div>
+          </div>
+          <div class="warning-box" id="warn1">
+            ⚠ Harap lengkapi semua data diri sebelum melanjutkan.
+          </div>
+          <div class="btn-row">
+            <button class="btn btn-primary" onclick="goPage2()">
+              Lanjut ke Diagnosa →
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAGE 2 -->
+      <div class="page" id="page2">
+        <div class="card">
+          <div class="card-title">
+            Pemilihan Gejala <span class="count-badge" id="cntBadge">0</span>
+          </div>
+          <div class="card-subtitle">
+            Centang gejala yang Anda rasakan. Jawab dengan jujur untuk hasil
+            yang akurat.
+          </div>
+          <div class="progress-wrap">
+            <div class="progress-label">
+              <span>Gejala dipilih: <b id="cntLabel">0</b> dari 20</span
+              ><span id="progPct">0%</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" id="progressFill"></div>
+            </div>
+          </div>
+
+          <div class="gejala-category">
+            <div class="category-label">Ketergantungan & Durasi</div>
+            <div class="gejala-item" data-id="G01" onclick="toggleGejala(this)">
+              <div class="gejala-check"></div>
+              <div class="gejala-code">G01</div>
+              <div class="gejala-text">
+                Menggunakan gadget lebih dari 6 jam per hari
+              </div>
+            </div>
+            <div class="gejala-item" data-id="G02" onclick="toggleGejala(this)">
+              <div class="gejala-check"></div>
+              <div class="gejala-code">G02</div>
+              <div class="gejala-text">
+                Lebih banyak menghabiskan waktu dengan gadget daripada aktivitas
+                akademik
+              </div>
+            </div>
+            <div class="gejala-item" data-id="G08" onclick="toggleGejala(this)">
+              <div class="gejala-check"></div>
+              <div class="gejala-code">G08</div>
+              <div class="gejala-text">
+                Tidak mau berhenti menggunakan gadget meskipun sudah sangat lama
+              </div>
+            </div>
+            <div class="gejala-item" data-id="G11" onclick="toggleGejala(this)">
+              <div class="gejala-check"></div>
+              <div class="gejala-code">G11</div>
+              <div class="gejala-text">
+                Merasa sangat bahagia dan puas ketika dapat menggunakan gadget
+              </div>
+            </div>
+          </div>
+          <div class="gejala-category">
+            <div class="category-label">Kecemasan & Emosi</div>
+            <div class="gejala-item" data-id="G03" onclick="toggleGejala(this)">
+              <div class="gejala-check"></div>
+              <div class="gejala-code">G03</div>
+              <div class="gejala-text">
+                Merasa cemas berlebihan saat berpisah dari gadget (Nomophobia)
+              </div>
+            </div>
+            <div class="gejala-item" data-id="G04" onclick="toggleGejala(this)">
+              <div class="gejala-check"></div>
+              <div class="gejala-code">G04</div>
+              <div class="gejala-text">
+                Marah atau emosi ketika gadget diambil atau tidak bisa digunakan
+              </div>
+            </div>
+            <div class="gejala-item" data-id="G07" onclick="toggleGejala(this)">
+              <div class="gejala-check"></div>
+              <div class="gejala-code">G07</div>
+              <div class="gejala-text">
+                Merasa gugup dan tidak nyaman ketika gadget tidak terkoneksi
+                internet / kehabisan kuota
+              </div>
+            </div>
+            <div class="gejala-item" data-id="G17" onclick="toggleGejala(this)">
+              <div class="gejala-check"></div>
+              <div class="gejala-code">G17</div>
+              <div class="gejala-text">
+                Merasa panik berlebihan saat baterai gadget hampir habis (Low
+                Battery Anxiety)
+              </div>
+            </div>
+          </div>
+          <div class="gejala-category">
+            <div class="category-label">Dampak Sosial & Akademik</div>
+            <div class="gejala-item" data-id="G05" onclick="toggleGejala(this)">
+              <div class="gejala-check"></div>
+              <div class="gejala-code">G05</div>
+              <div class="gejala-text">
+                Lebih sering berinteraksi dengan gadget daripada orang sekitar
+                (Phubbing)
+              </div>
+            </div>
+            <div class="gejala-item" data-id="G06" onclick="toggleGejala(this)">
+              <div class="gejala-check"></div>
+              <div class="gejala-code">G06</div>
+              <div class="gejala-text">
+                Malas mengikuti perkuliahan atau mengerjakan tugas karena
+                terlalu sering bermain gadget
+              </div>
+            </div>
+            <div class="gejala-item" data-id="G13" onclick="toggleGejala(this)">
+              <div class="gejala-check"></div>
+              <div class="gejala-code">G13</div>
+              <div class="gejala-text">
+                Interaksi dengan teman atau keluarga hanya sebentar karena lebih
+                fokus ke gadget
+              </div>
+            </div>
+            <div class="gejala-item" data-id="G19" onclick="toggleGejala(this)">
+              <div class="gejala-check"></div>
+              <div class="gejala-code">G19</div>
+              <div class="gejala-text">
+                Nilai akademik menurun akibat penggunaan gadget yang berlebihan
+              </div>
+            </div>
+          </div>
+          <div class="gejala-category">
+            <div class="category-label">Perilaku & Kebiasaan</div>
+            <div class="gejala-item" data-id="G09" onclick="toggleGejala(this)">
+              <div class="gejala-check"></div>
+              <div class="gejala-code">G09</div>
+              <div class="gejala-text">
+                Menggunakan gadget saat makan, belajar, di jalan, atau di toilet
+              </div>
+            </div>
+            <div class="gejala-item" data-id="G10" onclick="toggleGejala(this)">
+              <div class="gejala-check"></div>
+              <div class="gejala-code">G10</div>
+              <div class="gejala-text">
+                Tidur dengan gadget di dekatnya dan langsung menggunakannya saat
+                bangun
+              </div>
+            </div>
+            <div class="gejala-item" data-id="G12" onclick="toggleGejala(this)">
+              <div class="gejala-check"></div>
+              <div class="gejala-code">G12</div>
+              <div class="gejala-text">
+                Selalu membawa charger ke mana pun pergi demi memastikan gadget
+                tetap menyala
+              </div>
+            </div>
+            <div class="gejala-item" data-id="G14" onclick="toggleGejala(this)">
+              <div class="gejala-check"></div>
+              <div class="gejala-code">G14</div>
+              <div class="gejala-text">
+                Menggunakan gadget sebagai pelarian atau menghindar dari tugas
+                dan tanggung jawab
+              </div>
+            </div>
+          </div>
+          <div class="gejala-category">
+            <div class="category-label">FOMO & Phantom Vibration</div>
+            <div class="gejala-item" data-id="G15" onclick="toggleGejala(this)">
+              <div class="gejala-check"></div>
+              <div class="gejala-code">G15</div>
+              <div class="gejala-text">
+                Sering memeriksa gadget meskipun tidak ada notifikasi yang masuk
+              </div>
+            </div>
+            <div class="gejala-item" data-id="G16" onclick="toggleGejala(this)">
+              <div class="gejala-check"></div>
+              <div class="gejala-code">G16</div>
+              <div class="gejala-text">
+                Takut ketinggalan informasi terkini di media sosial (FOMO - Fear
+                Of Missing Out)
+              </div>
+            </div>
+            <div class="gejala-item" data-id="G18" onclick="toggleGejala(this)">
+              <div class="gejala-check"></div>
+              <div class="gejala-code">G18</div>
+              <div class="gejala-text">
+                Sering merasa ada getaran notifikasi masuk padahal tidak ada
+                (Phantom Vibration)
+              </div>
+            </div>
+            <div class="gejala-item" data-id="G20" onclick="toggleGejala(this)">
+              <div class="gejala-check"></div>
+              <div class="gejala-code">G20</div>
+              <div class="gejala-text">
+                Pola tidur terganggu karena menggunakan gadget hingga larut
+                malam
+              </div>
+            </div>
+          </div>
+
+          <div class="warning-box" id="warn2">
+            ⚠ Pilih minimal 1 gejala yang Anda rasakan untuk melanjutkan
+            diagnosa.
+          </div>
+          <div class="btn-row">
+            <button class="btn btn-secondary" onclick="goPage1Back()">
+              ← Kembali
+            </button>
+            <button class="btn btn-danger" onclick="resetGejala()">
+              Reset Pilihan
+            </button>
+            <button class="btn btn-primary" onclick="diagnosa()">
+              Diagnosa Sekarang →
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAGE 3: HASIL -->
+      <div class="page" id="page3">
+        <!-- Print-only header (hidden on screen) -->
+        <div class="print-header" style="display: none">
+          <div class="print-header-left">
+            <div class="print-logo">SiPakar<span> Gadget</span></div>
+            <div class="print-tagline">
+              Sistem Pakar Diagnosa Kecanduan Gadget Mahasiswa · Metode Forward
+              Chaining
+            </div>
+            <div class="print-tagline" style="margin-top: 2px">
+              Kelompok 4 — Jenni Mustika & Izma Darawiyah Nst
+            </div>
+          </div>
+          <div class="print-header-right">
+            <div class="print-date" id="printDate"></div>
+            <div class="print-doc-id" id="printDocId"></div>
+          </div>
+        </div>
+
+        <div class="hasil-hero" id="hasilHero">
+          <div class="hasil-icon" id="hasilIcon"></div>
+          <div>
+            <div class="hasil-title" id="hasilTitle"></div>
+            <div class="hasil-subtitle" id="hasilSubtitle"></div>
+          </div>
+        </div>
+
+        <div class="detail-card">
+          <div class="detail-title">Informasi Pengguna</div>
+          <div class="user-info-row" id="userInfoRow"></div>
+        </div>
+
+        <div class="detail-card">
+          <div class="detail-title">Tingkat Kecanduan</div>
+          <div class="meter-wrap">
+            <div class="meter-label">
+              <span id="meterLabel">Indeks Kecanduan</span
+              ><span id="meterPct"></span>
+            </div>
+            <div class="meter-bar">
+              <div class="meter-fill" id="meterFill"></div>
+            </div>
+          </div>
+          <p
+            id="meterDesc"
+            style="font-size: 0.85rem; color: var(--muted); margin-top: 10px"
+          ></p>
+        </div>
+
+        <div class="detail-card">
+          <div class="detail-title">
+            Gejala yang Ditemukan (<span id="gejalaCnt">0</span> gejala)
+          </div>
+          <div class="gejala-selected-list" id="gejalaTags"></div>
+        </div>
+
+        <div class="detail-card">
+          <div class="detail-title">Rekomendasi Penanganan</div>
+          <ul class="rekomendasi-list" id="rekomendasiList"></ul>
+        </div>
+
+        <!-- Catatan screen version -->
+        <div
+          id="noteCetak"
+          class="detail-card"
+          style="
+            background: rgba(255, 140, 0, 0.06);
+            border-color: rgba(255, 140, 0, 0.2);
+          "
+        >
+          <div class="detail-title" style="color: var(--orange)">
+            Catatan Penting
+          </div>
+          <p style="font-size: 0.88rem; color: var(--muted); line-height: 1.7">
+            Hasil diagnosa ini bersifat
+            <b style="color: var(--white)"
+              >informatif dan tidak menggantikan konsultasi profesional</b
+            >. Jika Anda merasa membutuhkan bantuan lebih lanjut, segera hubungi
+            psikolog atau konselor kampus Anda. Sistem ini menggunakan metode
+            <b style="color: var(--white)">Forward Chaining</b> berdasarkan
+            basis pengetahuan dari kajian pustaka dan wawancara dengan psikolog.
+          </p>
+        </div>
+
+        <!-- Catatan print version -->
+        <div class="print-note-card" style="display: none">
+          <div class="detail-title">Catatan Penting</div>
+          <p>
+            Hasil diagnosa ini bersifat
+            <strong
+              >informatif dan tidak menggantikan konsultasi profesional</strong
+            >. Jika Anda membutuhkan bantuan lebih lanjut, segera hubungi
+            psikolog atau konselor kampus. Sistem ini menggunakan metode
+            <strong>Forward Chaining</strong> berdasarkan basis pengetahuan dari
+            kajian pustaka dan wawancara dengan psikolog.
+          </p>
+        </div>
+
+        <!-- Print-only footer -->
+        <div class="print-footer" style="display: none">
+          <div class="print-footer-left">
+            Dokumen ini dicetak dari SiPakar Gadget — Sistem Pakar Kecanduan
+            Gadget Mahasiswa
+          </div>
+          <div class="print-footer-right" id="printFooterRight"></div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn btn-secondary" onclick="goPage2Back()">
+            ← Ubah Jawaban
+          </button>
+          <button class="btn btn-primary" onclick="cetakHasil()">
+            🖨 Cetak / Simpan PDF
+          </button>
+          <button class="btn btn-secondary" onclick="restart()">
+            Diagnosa Ulang
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
