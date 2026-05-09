@@ -1,3 +1,4 @@
+
 const GEJALA_INFO = {
   G01: "Menggunakan gadget >6 jam/hari",
   G02: "Waktu gadget > aktivitas akademik",
